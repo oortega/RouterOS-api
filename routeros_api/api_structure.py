@@ -8,6 +8,7 @@ class StringField(object):
     def get_python_value(self, bytes):
         return bytes.decode()
 #se usa esta codificación porque UTF-8 estaba mandando error
+
 class LatinString(object):
     def get_mikrotik_value(self, string):
         return string.encode()
