@@ -7,7 +7,13 @@ class StringField(object):
 
     def get_python_value(self, bytes):
         return bytes.decode()
+#se usa esta codificación porque UTF-8 estaba mandando error
+class LatinString(object):
+    def get_mikrotik_value(self, string):
+        return string.encode()
 
+    def get_python_value(self, bytes):
+        return bytes.decode('latin-1')
 
 class BytesField:
     def get_mikrotik_value(self, bytes):
@@ -26,4 +32,5 @@ class BooleanField:
         return bytes in (b'yes', b'true')
 
 
-default_structure = collections.defaultdict(StringField)
+default_structure = collections.defaultdict(LatinString)
+
