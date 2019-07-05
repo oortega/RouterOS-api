@@ -58,8 +58,12 @@ class RouterOsApi(object):
         self.communicator = communicator
 
     def login(self, login, password):
-        try:
-            #Default Old_login < 6.42
+        #New login > 6.43
+        response = self.get_binary_resource('/').call('login', {'name': login, 'password': password})
+
+        #Old_login < 6.42
+        if "ret" in response.done_message:
+            
             response = self.get_binary_resource('/').call('login')
             token = binascii.unhexlify(response.done_message['ret'])
             hasher = hashlib.md5()
@@ -70,10 +74,6 @@ class RouterOsApi(object):
             #assert False
             self.get_binary_resource('/').call(
                 'login', {'name': login.encode(), 'response': hashed})
-
-        except:
-            #New Login >6.43
-            response = self.get_binary_resource('/').call('login', {'name': login, 'password': password})
             
     def get_resource(self, path, structure=None):
         structure = structure or api_structure.default_structure
