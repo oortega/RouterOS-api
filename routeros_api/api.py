@@ -71,7 +71,7 @@ class RouterOsApi(object):
             self.get_binary_resource('/').call(
                 'login', {'name': login.encode(), 'response': hashed})
 
-        except exceptions.RouterOsApiCommunicationError:
+        except (exceptions.RouterOsApiCommunicationError, exceptions.RouterOsApiConnectionError):
             #New Login >6.43
             response = self.get_binary_resource('/').call('login', {'name': login, 'password': password})
             
