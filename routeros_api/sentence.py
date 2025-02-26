@@ -4,7 +4,7 @@ from routeros_api import exceptions
 from routeros_api import query
 
 
-response_re = re.compile(b'^!(re|trap|fatal|done)$')
+response_re = re.compile(b'^!(re|trap|fatal|done|empty)$')
 attribute_re = re.compile(b'^=([^=]+)=(.*)$', re.DOTALL)
 tag_re = re.compile(b'^\.tag=(.*)$')
 
